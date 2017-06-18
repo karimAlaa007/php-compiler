@@ -1,0 +1,1832 @@
+Created by PLY version 3.9 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> StartCode
+Rule 1     StartCode -> START_CODE InternalCode END_CODE
+Rule 2     StartCode -> <empty>
+Rule 3     InternalCode -> CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+Rule 4     InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+Rule 5     InternalCode -> dec_var InternalCode
+Rule 6     InternalCode -> dec_fun InternalCode
+Rule 7     InternalCode -> VARIABLE EQUALS expr SEMICOLON InternalCode
+Rule 8     InternalCode -> CallRetFun InternalCode
+Rule 9     InternalCode -> print InternalCode
+Rule 10    InternalCode -> CallClassFun InternalCode
+Rule 11    InternalCode -> <empty>
+Rule 12    CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+Rule 13    CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+Rule 14    ClassCode -> dec_var ClassCode
+Rule 15    ClassCode -> dec_fun ClassCode
+Rule 16    ClassCode -> VARIABLE EQUALS expr SEMICOLON ClassCode
+Rule 17    ClassCode -> CallRetFun ClassCode
+Rule 18    ClassCode -> <empty>
+Rule 19    CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+Rule 20    CallFun -> CallRetFun
+Rule 21    CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+Rule 22    dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+Rule 23    parameter -> VARIABLE COMMA parameter
+Rule 24    parameter -> VARIABLE
+Rule 25    parameter -> <empty>
+Rule 26    fun_code -> dec_var fun_code
+Rule 27    fun_code -> print fun_code
+Rule 28    fun_code -> VARIABLE EQUALS expr SEMICOLON fun_code
+Rule 29    fun_code -> CallFun fun_code
+Rule 30    fun_code -> FunRet SEMICOLON
+Rule 31    fun_code -> <empty>
+Rule 32    dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+Rule 33    dec_var -> VARIABLE EQUALS CONST SEMICOLON
+Rule 34    print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+Rule 35    print -> PRINT VARIABLE SEMICOLON
+Rule 36    PrintData -> DOT SINGLE_QUOTE string SINGLE_QUOTE PrintData
+Rule 37    PrintData -> DOT VARIABLE PrintData
+Rule 38    PrintData -> <empty>
+Rule 39    string -> IDENTIFIER string
+Rule 40    string -> <empty>
+Rule 41    expr -> expr PLUS term
+Rule 42    expr -> expr MINUS term
+Rule 43    expr -> term
+Rule 44    term -> term TIMES factor
+Rule 45    term -> term DIVIDE factor
+Rule 46    term -> factor
+Rule 47    factor -> IDENTIFIER
+Rule 48    factor -> CONST
+Rule 49    factor -> VARIABLE
+Rule 50    FunRet -> RETURN VARIABLE
+Rule 51    FunRet -> RETURN SINGLE_QUOTE string SINGLE_QUOTE
+Rule 52    FunRet -> RETURN TRUE
+Rule 53    FunRet -> RETURN FALSE
+
+Terminals, with rules where they appear
+
+ARROW                : 12 13
+CLASS                : 3
+CLOSE_BRACE          : 4 12 13 19 21 22
+CLOSE_CURLY_BRACE    : 3 22
+COMMA                : 23
+CONST                : 33 48
+DIVIDE               : 45
+DOT                  : 36 37
+DOUBLE_QUOTE         : 32 32
+END_CODE             : 1
+EQUALS               : 4 7 12 16 21 28 32 33
+FALSE                : 53
+FUNCTION             : 22
+IDENTIFIER           : 3 4 12 13 19 21 22 39 47
+MINUS                : 42
+NEW                  : 4
+OPEN_BRACE           : 4 12 13 19 21 22
+OPEN_CURLY_BRACE     : 3 22
+PLUS                 : 41
+PRINT                : 34 35
+RETURN               : 50 51 52 53
+SEMICOLON            : 4 7 12 13 16 19 21 28 30 32 33 34 35
+SINGLE_QUOTE         : 34 34 36 36 51 51
+START_CODE           : 1
+TIMES                : 44
+TRUE                 : 52
+VARIABLE             : 4 7 12 12 13 16 21 23 24 28 32 33 35 37 49 50
+error                : 
+
+Nonterminals, with rules where they appear
+
+CallClassFun         : 10
+CallFun              : 29
+CallRetFun           : 8 17 20
+ClassCode            : 3 14 15 16 17
+FunRet               : 30
+InternalCode         : 1 3 4 5 6 7 8 9 10
+PrintData            : 34 36 37
+StartCode            : 0
+dec_fun              : 6 15
+dec_var              : 5 14 26
+expr                 : 7 16 28 41 42
+factor               : 44 45 46
+fun_code             : 22 26 27 28 29
+parameter            : 4 12 13 19 21 22 23
+print                : 9 27
+string               : 32 34 36 39 51
+term                 : 41 42 43 44 45
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . StartCode
+    (1) StartCode -> . START_CODE InternalCode END_CODE
+    (2) StartCode -> .
+
+    START_CODE      shift and go to state 1
+    $end            reduce using rule 2 (StartCode -> .)
+
+    StartCode                      shift and go to state 2
+
+state 1
+
+    (1) StartCode -> START_CODE . InternalCode END_CODE
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    CallRetFun                     shift and go to state 7
+    InternalCode                   shift and go to state 5
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 2
+
+    (0) S' -> StartCode .
+
+
+
+state 3
+
+    (10) InternalCode -> CallClassFun . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    InternalCode                   shift and go to state 13
+    CallRetFun                     shift and go to state 7
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 4
+
+    (9) InternalCode -> print . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    print                          shift and go to state 4
+    CallClassFun                   shift and go to state 3
+    InternalCode                   shift and go to state 14
+    CallRetFun                     shift and go to state 7
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 5
+
+    (1) StartCode -> START_CODE InternalCode . END_CODE
+
+    END_CODE        shift and go to state 15
+
+
+state 6
+
+    (4) InternalCode -> VARIABLE . EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (7) InternalCode -> VARIABLE . EQUALS expr SEMICOLON InternalCode
+    (32) dec_var -> VARIABLE . EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> VARIABLE . EQUALS CONST SEMICOLON
+    (21) CallRetFun -> VARIABLE . EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (12) CallClassFun -> VARIABLE . EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> VARIABLE . ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    EQUALS          shift and go to state 16
+    ARROW           shift and go to state 17
+
+
+state 7
+
+    (8) InternalCode -> CallRetFun . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    CallRetFun                     shift and go to state 7
+    InternalCode                   shift and go to state 18
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 8
+
+    (3) InternalCode -> CLASS . IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+
+    IDENTIFIER      shift and go to state 19
+
+
+state 9
+
+    (6) InternalCode -> dec_fun . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    CallRetFun                     shift and go to state 7
+    InternalCode                   shift and go to state 20
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 10
+
+    (34) print -> PRINT . SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> PRINT . VARIABLE SEMICOLON
+
+    SINGLE_QUOTE    shift and go to state 22
+    VARIABLE        shift and go to state 21
+
+
+state 11
+
+    (22) dec_fun -> FUNCTION . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+
+    IDENTIFIER      shift and go to state 23
+
+
+state 12
+
+    (5) InternalCode -> dec_var . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    CallRetFun                     shift and go to state 7
+    InternalCode                   shift and go to state 24
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 13
+
+    (10) InternalCode -> CallClassFun InternalCode .
+
+    END_CODE        reduce using rule 10 (InternalCode -> CallClassFun InternalCode .)
+
+
+state 14
+
+    (9) InternalCode -> print InternalCode .
+
+    END_CODE        reduce using rule 9 (InternalCode -> print InternalCode .)
+
+
+state 15
+
+    (1) StartCode -> START_CODE InternalCode END_CODE .
+
+    $end            reduce using rule 1 (StartCode -> START_CODE InternalCode END_CODE .)
+
+
+state 16
+
+    (4) InternalCode -> VARIABLE EQUALS . NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (7) InternalCode -> VARIABLE EQUALS . expr SEMICOLON InternalCode
+    (32) dec_var -> VARIABLE EQUALS . DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> VARIABLE EQUALS . CONST SEMICOLON
+    (21) CallRetFun -> VARIABLE EQUALS . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (12) CallClassFun -> VARIABLE EQUALS . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (41) expr -> . expr PLUS term
+    (42) expr -> . expr MINUS term
+    (43) expr -> . term
+    (44) term -> . term TIMES factor
+    (45) term -> . term DIVIDE factor
+    (46) term -> . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    NEW             shift and go to state 25
+    DOUBLE_QUOTE    shift and go to state 32
+    CONST           shift and go to state 31
+    IDENTIFIER      shift and go to state 26
+    VARIABLE        shift and go to state 29
+
+    expr                           shift and go to state 28
+    factor                         shift and go to state 30
+    term                           shift and go to state 27
+
+state 17
+
+    (13) CallClassFun -> VARIABLE ARROW . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    IDENTIFIER      shift and go to state 33
+
+
+state 18
+
+    (8) InternalCode -> CallRetFun InternalCode .
+
+    END_CODE        reduce using rule 8 (InternalCode -> CallRetFun InternalCode .)
+
+
+state 19
+
+    (3) InternalCode -> CLASS IDENTIFIER . OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+
+    OPEN_CURLY_BRACE shift and go to state 34
+
+
+state 20
+
+    (6) InternalCode -> dec_fun InternalCode .
+
+    END_CODE        reduce using rule 6 (InternalCode -> dec_fun InternalCode .)
+
+
+state 21
+
+    (35) print -> PRINT VARIABLE . SEMICOLON
+
+    SEMICOLON       shift and go to state 35
+
+
+state 22
+
+    (34) print -> PRINT SINGLE_QUOTE . string SINGLE_QUOTE PrintData SEMICOLON
+    (39) string -> . IDENTIFIER string
+    (40) string -> .
+
+    IDENTIFIER      shift and go to state 36
+    SINGLE_QUOTE    reduce using rule 40 (string -> .)
+
+    string                         shift and go to state 37
+
+state 23
+
+    (22) dec_fun -> FUNCTION IDENTIFIER . OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+
+    OPEN_BRACE      shift and go to state 38
+
+
+state 24
+
+    (5) InternalCode -> dec_var InternalCode .
+
+    END_CODE        reduce using rule 5 (InternalCode -> dec_var InternalCode .)
+
+
+state 25
+
+    (4) InternalCode -> VARIABLE EQUALS NEW . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+
+    IDENTIFIER      shift and go to state 39
+
+
+state 26
+
+    (21) CallRetFun -> VARIABLE EQUALS IDENTIFIER . OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (47) factor -> IDENTIFIER .
+
+    OPEN_BRACE      shift and go to state 40
+    TIMES           reduce using rule 47 (factor -> IDENTIFIER .)
+    DIVIDE          reduce using rule 47 (factor -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 47 (factor -> IDENTIFIER .)
+    PLUS            reduce using rule 47 (factor -> IDENTIFIER .)
+    MINUS           reduce using rule 47 (factor -> IDENTIFIER .)
+
+
+state 27
+
+    (43) expr -> term .
+    (44) term -> term . TIMES factor
+    (45) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 43 (expr -> term .)
+    PLUS            reduce using rule 43 (expr -> term .)
+    MINUS           reduce using rule 43 (expr -> term .)
+    TIMES           shift and go to state 42
+    DIVIDE          shift and go to state 41
+
+
+state 28
+
+    (7) InternalCode -> VARIABLE EQUALS expr . SEMICOLON InternalCode
+    (41) expr -> expr . PLUS term
+    (42) expr -> expr . MINUS term
+
+    SEMICOLON       shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 29
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE . ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (49) factor -> VARIABLE .
+
+    ARROW           shift and go to state 46
+    TIMES           reduce using rule 49 (factor -> VARIABLE .)
+    DIVIDE          reduce using rule 49 (factor -> VARIABLE .)
+    SEMICOLON       reduce using rule 49 (factor -> VARIABLE .)
+    PLUS            reduce using rule 49 (factor -> VARIABLE .)
+    MINUS           reduce using rule 49 (factor -> VARIABLE .)
+
+
+state 30
+
+    (46) term -> factor .
+
+    TIMES           reduce using rule 46 (term -> factor .)
+    DIVIDE          reduce using rule 46 (term -> factor .)
+    SEMICOLON       reduce using rule 46 (term -> factor .)
+    PLUS            reduce using rule 46 (term -> factor .)
+    MINUS           reduce using rule 46 (term -> factor .)
+
+
+state 31
+
+    (33) dec_var -> VARIABLE EQUALS CONST . SEMICOLON
+    (48) factor -> CONST .
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+    SEMICOLON       shift and go to state 47
+    TIMES           reduce using rule 48 (factor -> CONST .)
+    DIVIDE          reduce using rule 48 (factor -> CONST .)
+    PLUS            reduce using rule 48 (factor -> CONST .)
+    MINUS           reduce using rule 48 (factor -> CONST .)
+
+  ! SEMICOLON       [ reduce using rule 48 (factor -> CONST .) ]
+
+
+state 32
+
+    (32) dec_var -> VARIABLE EQUALS DOUBLE_QUOTE . string DOUBLE_QUOTE SEMICOLON
+    (39) string -> . IDENTIFIER string
+    (40) string -> .
+
+    IDENTIFIER      shift and go to state 36
+    DOUBLE_QUOTE    reduce using rule 40 (string -> .)
+
+    string                         shift and go to state 48
+
+state 33
+
+    (13) CallClassFun -> VARIABLE ARROW IDENTIFIER . OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    OPEN_BRACE      shift and go to state 49
+
+
+state 34
+
+    (3) InternalCode -> CLASS IDENTIFIER OPEN_CURLY_BRACE . ClassCode CLOSE_CURLY_BRACE InternalCode
+    (14) ClassCode -> . dec_var ClassCode
+    (15) ClassCode -> . dec_fun ClassCode
+    (16) ClassCode -> . VARIABLE EQUALS expr SEMICOLON ClassCode
+    (17) ClassCode -> . CallRetFun ClassCode
+    (18) ClassCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 51
+    CLOSE_CURLY_BRACE reduce using rule 18 (ClassCode -> .)
+    FUNCTION        shift and go to state 11
+
+    CallRetFun                     shift and go to state 52
+    ClassCode                      shift and go to state 50
+    dec_var                        shift and go to state 54
+    dec_fun                        shift and go to state 53
+
+state 35
+
+    (35) print -> PRINT VARIABLE SEMICOLON .
+
+    CLASS           reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    VARIABLE        reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    FUNCTION        reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    PRINT           reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    END_CODE        reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    IDENTIFIER      reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    RETURN          reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+    CLOSE_CURLY_BRACE reduce using rule 35 (print -> PRINT VARIABLE SEMICOLON .)
+
+
+state 36
+
+    (39) string -> IDENTIFIER . string
+    (39) string -> . IDENTIFIER string
+    (40) string -> .
+
+    IDENTIFIER      shift and go to state 36
+    SINGLE_QUOTE    reduce using rule 40 (string -> .)
+    DOUBLE_QUOTE    reduce using rule 40 (string -> .)
+
+    string                         shift and go to state 55
+
+state 37
+
+    (34) print -> PRINT SINGLE_QUOTE string . SINGLE_QUOTE PrintData SEMICOLON
+
+    SINGLE_QUOTE    shift and go to state 56
+
+
+state 38
+
+    (22) dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE . parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 58
+
+state 39
+
+    (4) InternalCode -> VARIABLE EQUALS NEW IDENTIFIER . OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+
+    OPEN_BRACE      shift and go to state 59
+
+
+state 40
+
+    (21) CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE . parameter CLOSE_BRACE SEMICOLON
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 60
+
+state 41
+
+    (45) term -> term DIVIDE . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    IDENTIFIER      shift and go to state 62
+    CONST           shift and go to state 64
+    VARIABLE        shift and go to state 63
+
+    factor                         shift and go to state 61
+
+state 42
+
+    (44) term -> term TIMES . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    IDENTIFIER      shift and go to state 62
+    CONST           shift and go to state 64
+    VARIABLE        shift and go to state 63
+
+    factor                         shift and go to state 65
+
+state 43
+
+    (7) InternalCode -> VARIABLE EQUALS expr SEMICOLON . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    InternalCode                   shift and go to state 66
+    CallRetFun                     shift and go to state 7
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 44
+
+    (41) expr -> expr PLUS . term
+    (44) term -> . term TIMES factor
+    (45) term -> . term DIVIDE factor
+    (46) term -> . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    IDENTIFIER      shift and go to state 62
+    CONST           shift and go to state 64
+    VARIABLE        shift and go to state 63
+
+    factor                         shift and go to state 30
+    term                           shift and go to state 67
+
+state 45
+
+    (42) expr -> expr MINUS . term
+    (44) term -> . term TIMES factor
+    (45) term -> . term DIVIDE factor
+    (46) term -> . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    IDENTIFIER      shift and go to state 62
+    CONST           shift and go to state 64
+    VARIABLE        shift and go to state 63
+
+    factor                         shift and go to state 30
+    term                           shift and go to state 68
+
+state 46
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE ARROW . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    IDENTIFIER      shift and go to state 69
+
+
+state 47
+
+    (33) dec_var -> VARIABLE EQUALS CONST SEMICOLON .
+
+    VARIABLE        reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    FUNCTION        reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    CLOSE_CURLY_BRACE reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    CLASS           reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    PRINT           reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    END_CODE        reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    IDENTIFIER      reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+    RETURN          reduce using rule 33 (dec_var -> VARIABLE EQUALS CONST SEMICOLON .)
+
+
+state 48
+
+    (32) dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string . DOUBLE_QUOTE SEMICOLON
+
+    DOUBLE_QUOTE    shift and go to state 70
+
+
+state 49
+
+    (13) CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE . parameter CLOSE_BRACE SEMICOLON
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 71
+
+state 50
+
+    (3) InternalCode -> CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode . CLOSE_CURLY_BRACE InternalCode
+
+    CLOSE_CURLY_BRACE shift and go to state 72
+
+
+state 51
+
+    (16) ClassCode -> VARIABLE . EQUALS expr SEMICOLON ClassCode
+    (32) dec_var -> VARIABLE . EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> VARIABLE . EQUALS CONST SEMICOLON
+    (21) CallRetFun -> VARIABLE . EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    EQUALS          shift and go to state 73
+
+
+state 52
+
+    (17) ClassCode -> CallRetFun . ClassCode
+    (14) ClassCode -> . dec_var ClassCode
+    (15) ClassCode -> . dec_fun ClassCode
+    (16) ClassCode -> . VARIABLE EQUALS expr SEMICOLON ClassCode
+    (17) ClassCode -> . CallRetFun ClassCode
+    (18) ClassCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 51
+    CLOSE_CURLY_BRACE reduce using rule 18 (ClassCode -> .)
+    FUNCTION        shift and go to state 11
+
+    CallRetFun                     shift and go to state 52
+    ClassCode                      shift and go to state 74
+    dec_var                        shift and go to state 54
+    dec_fun                        shift and go to state 53
+
+state 53
+
+    (15) ClassCode -> dec_fun . ClassCode
+    (14) ClassCode -> . dec_var ClassCode
+    (15) ClassCode -> . dec_fun ClassCode
+    (16) ClassCode -> . VARIABLE EQUALS expr SEMICOLON ClassCode
+    (17) ClassCode -> . CallRetFun ClassCode
+    (18) ClassCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 51
+    CLOSE_CURLY_BRACE reduce using rule 18 (ClassCode -> .)
+    FUNCTION        shift and go to state 11
+
+    CallRetFun                     shift and go to state 52
+    ClassCode                      shift and go to state 75
+    dec_var                        shift and go to state 54
+    dec_fun                        shift and go to state 53
+
+state 54
+
+    (14) ClassCode -> dec_var . ClassCode
+    (14) ClassCode -> . dec_var ClassCode
+    (15) ClassCode -> . dec_fun ClassCode
+    (16) ClassCode -> . VARIABLE EQUALS expr SEMICOLON ClassCode
+    (17) ClassCode -> . CallRetFun ClassCode
+    (18) ClassCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 51
+    CLOSE_CURLY_BRACE reduce using rule 18 (ClassCode -> .)
+    FUNCTION        shift and go to state 11
+
+    CallRetFun                     shift and go to state 52
+    ClassCode                      shift and go to state 76
+    dec_var                        shift and go to state 54
+    dec_fun                        shift and go to state 53
+
+state 55
+
+    (39) string -> IDENTIFIER string .
+
+    SINGLE_QUOTE    reduce using rule 39 (string -> IDENTIFIER string .)
+    DOUBLE_QUOTE    reduce using rule 39 (string -> IDENTIFIER string .)
+
+
+state 56
+
+    (34) print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE . PrintData SEMICOLON
+    (36) PrintData -> . DOT SINGLE_QUOTE string SINGLE_QUOTE PrintData
+    (37) PrintData -> . DOT VARIABLE PrintData
+    (38) PrintData -> .
+
+    DOT             shift and go to state 77
+    SEMICOLON       reduce using rule 38 (PrintData -> .)
+
+    PrintData                      shift and go to state 78
+
+state 57
+
+    (23) parameter -> VARIABLE . COMMA parameter
+    (24) parameter -> VARIABLE .
+
+    COMMA           shift and go to state 79
+    CLOSE_BRACE     reduce using rule 24 (parameter -> VARIABLE .)
+
+
+state 58
+
+    (22) dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter . CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+
+    CLOSE_BRACE     shift and go to state 80
+
+
+state 59
+
+    (4) InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE . parameter CLOSE_BRACE SEMICOLON InternalCode
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 81
+
+state 60
+
+    (21) CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter . CLOSE_BRACE SEMICOLON
+
+    CLOSE_BRACE     shift and go to state 82
+
+
+state 61
+
+    (45) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 45 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 45 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 45 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 45 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 45 (term -> term DIVIDE factor .)
+
+
+state 62
+
+    (47) factor -> IDENTIFIER .
+
+    TIMES           reduce using rule 47 (factor -> IDENTIFIER .)
+    DIVIDE          reduce using rule 47 (factor -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 47 (factor -> IDENTIFIER .)
+    PLUS            reduce using rule 47 (factor -> IDENTIFIER .)
+    MINUS           reduce using rule 47 (factor -> IDENTIFIER .)
+
+
+state 63
+
+    (49) factor -> VARIABLE .
+
+    TIMES           reduce using rule 49 (factor -> VARIABLE .)
+    DIVIDE          reduce using rule 49 (factor -> VARIABLE .)
+    SEMICOLON       reduce using rule 49 (factor -> VARIABLE .)
+    PLUS            reduce using rule 49 (factor -> VARIABLE .)
+    MINUS           reduce using rule 49 (factor -> VARIABLE .)
+
+
+state 64
+
+    (48) factor -> CONST .
+
+    TIMES           reduce using rule 48 (factor -> CONST .)
+    DIVIDE          reduce using rule 48 (factor -> CONST .)
+    SEMICOLON       reduce using rule 48 (factor -> CONST .)
+    PLUS            reduce using rule 48 (factor -> CONST .)
+    MINUS           reduce using rule 48 (factor -> CONST .)
+
+
+state 65
+
+    (44) term -> term TIMES factor .
+
+    TIMES           reduce using rule 44 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 44 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 44 (term -> term TIMES factor .)
+    PLUS            reduce using rule 44 (term -> term TIMES factor .)
+    MINUS           reduce using rule 44 (term -> term TIMES factor .)
+
+
+state 66
+
+    (7) InternalCode -> VARIABLE EQUALS expr SEMICOLON InternalCode .
+
+    END_CODE        reduce using rule 7 (InternalCode -> VARIABLE EQUALS expr SEMICOLON InternalCode .)
+
+
+state 67
+
+    (41) expr -> expr PLUS term .
+    (44) term -> term . TIMES factor
+    (45) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 41 (expr -> expr PLUS term .)
+    PLUS            reduce using rule 41 (expr -> expr PLUS term .)
+    MINUS           reduce using rule 41 (expr -> expr PLUS term .)
+    TIMES           shift and go to state 42
+    DIVIDE          shift and go to state 41
+
+
+state 68
+
+    (42) expr -> expr MINUS term .
+    (44) term -> term . TIMES factor
+    (45) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 42 (expr -> expr MINUS term .)
+    PLUS            reduce using rule 42 (expr -> expr MINUS term .)
+    MINUS           reduce using rule 42 (expr -> expr MINUS term .)
+    TIMES           shift and go to state 42
+    DIVIDE          shift and go to state 41
+
+
+state 69
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER . OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    OPEN_BRACE      shift and go to state 83
+
+
+state 70
+
+    (32) dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE . SEMICOLON
+
+    SEMICOLON       shift and go to state 84
+
+
+state 71
+
+    (13) CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter . CLOSE_BRACE SEMICOLON
+
+    CLOSE_BRACE     shift and go to state 85
+
+
+state 72
+
+    (3) InternalCode -> CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    CallRetFun                     shift and go to state 7
+    InternalCode                   shift and go to state 86
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 73
+
+    (16) ClassCode -> VARIABLE EQUALS . expr SEMICOLON ClassCode
+    (32) dec_var -> VARIABLE EQUALS . DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> VARIABLE EQUALS . CONST SEMICOLON
+    (21) CallRetFun -> VARIABLE EQUALS . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (41) expr -> . expr PLUS term
+    (42) expr -> . expr MINUS term
+    (43) expr -> . term
+    (44) term -> . term TIMES factor
+    (45) term -> . term DIVIDE factor
+    (46) term -> . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    DOUBLE_QUOTE    shift and go to state 32
+    CONST           shift and go to state 31
+    IDENTIFIER      shift and go to state 26
+    VARIABLE        shift and go to state 63
+
+    factor                         shift and go to state 30
+    term                           shift and go to state 27
+    expr                           shift and go to state 87
+
+state 74
+
+    (17) ClassCode -> CallRetFun ClassCode .
+
+    CLOSE_CURLY_BRACE reduce using rule 17 (ClassCode -> CallRetFun ClassCode .)
+
+
+state 75
+
+    (15) ClassCode -> dec_fun ClassCode .
+
+    CLOSE_CURLY_BRACE reduce using rule 15 (ClassCode -> dec_fun ClassCode .)
+
+
+state 76
+
+    (14) ClassCode -> dec_var ClassCode .
+
+    CLOSE_CURLY_BRACE reduce using rule 14 (ClassCode -> dec_var ClassCode .)
+
+
+state 77
+
+    (36) PrintData -> DOT . SINGLE_QUOTE string SINGLE_QUOTE PrintData
+    (37) PrintData -> DOT . VARIABLE PrintData
+
+    SINGLE_QUOTE    shift and go to state 89
+    VARIABLE        shift and go to state 88
+
+
+state 78
+
+    (34) print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData . SEMICOLON
+
+    SEMICOLON       shift and go to state 90
+
+
+state 79
+
+    (23) parameter -> VARIABLE COMMA . parameter
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 91
+
+state 80
+
+    (22) dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE . OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+
+    OPEN_CURLY_BRACE shift and go to state 92
+
+
+state 81
+
+    (4) InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter . CLOSE_BRACE SEMICOLON InternalCode
+
+    CLOSE_BRACE     shift and go to state 93
+
+
+state 82
+
+    (21) CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE . SEMICOLON
+
+    SEMICOLON       shift and go to state 94
+
+
+state 83
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE . parameter CLOSE_BRACE SEMICOLON
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 95
+
+state 84
+
+    (32) dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .
+
+    VARIABLE        reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    FUNCTION        reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    CLOSE_CURLY_BRACE reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    CLASS           reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    PRINT           reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    END_CODE        reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    IDENTIFIER      reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+    RETURN          reduce using rule 32 (dec_var -> VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON .)
+
+
+state 85
+
+    (13) CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE . SEMICOLON
+
+    SEMICOLON       shift and go to state 96
+
+
+state 86
+
+    (3) InternalCode -> CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode .
+
+    END_CODE        reduce using rule 3 (InternalCode -> CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode .)
+
+
+state 87
+
+    (16) ClassCode -> VARIABLE EQUALS expr . SEMICOLON ClassCode
+    (41) expr -> expr . PLUS term
+    (42) expr -> expr . MINUS term
+
+    SEMICOLON       shift and go to state 97
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 88
+
+    (37) PrintData -> DOT VARIABLE . PrintData
+    (36) PrintData -> . DOT SINGLE_QUOTE string SINGLE_QUOTE PrintData
+    (37) PrintData -> . DOT VARIABLE PrintData
+    (38) PrintData -> .
+
+    DOT             shift and go to state 77
+    SEMICOLON       reduce using rule 38 (PrintData -> .)
+
+    PrintData                      shift and go to state 98
+
+state 89
+
+    (36) PrintData -> DOT SINGLE_QUOTE . string SINGLE_QUOTE PrintData
+    (39) string -> . IDENTIFIER string
+    (40) string -> .
+
+    IDENTIFIER      shift and go to state 36
+    SINGLE_QUOTE    reduce using rule 40 (string -> .)
+
+    string                         shift and go to state 99
+
+state 90
+
+    (34) print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .
+
+    CLASS           reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    VARIABLE        reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    FUNCTION        reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    PRINT           reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    END_CODE        reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    IDENTIFIER      reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    RETURN          reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+    CLOSE_CURLY_BRACE reduce using rule 34 (print -> PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON .)
+
+
+state 91
+
+    (23) parameter -> VARIABLE COMMA parameter .
+
+    CLOSE_BRACE     reduce using rule 23 (parameter -> VARIABLE COMMA parameter .)
+
+
+state 92
+
+    (22) dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE . fun_code CLOSE_CURLY_BRACE
+    (26) fun_code -> . dec_var fun_code
+    (27) fun_code -> . print fun_code
+    (28) fun_code -> . VARIABLE EQUALS expr SEMICOLON fun_code
+    (29) fun_code -> . CallFun fun_code
+    (30) fun_code -> . FunRet SEMICOLON
+    (31) fun_code -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (19) CallFun -> . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (20) CallFun -> . CallRetFun
+    (50) FunRet -> . RETURN VARIABLE
+    (51) FunRet -> . RETURN SINGLE_QUOTE string SINGLE_QUOTE
+    (52) FunRet -> . RETURN TRUE
+    (53) FunRet -> . RETURN FALSE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 101
+    CLOSE_CURLY_BRACE reduce using rule 31 (fun_code -> .)
+    PRINT           shift and go to state 10
+    IDENTIFIER      shift and go to state 106
+    RETURN          shift and go to state 103
+
+    CallRetFun                     shift and go to state 102
+    print                          shift and go to state 100
+    FunRet                         shift and go to state 108
+    dec_var                        shift and go to state 104
+    CallFun                        shift and go to state 105
+    fun_code                       shift and go to state 107
+
+state 93
+
+    (4) InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE . SEMICOLON InternalCode
+
+    SEMICOLON       shift and go to state 109
+
+
+state 94
+
+    (21) CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .
+
+    CLASS           reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    VARIABLE        reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    FUNCTION        reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    PRINT           reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    END_CODE        reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    IDENTIFIER      reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    RETURN          reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    CLOSE_CURLY_BRACE reduce using rule 21 (CallRetFun -> VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+
+
+state 95
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter . CLOSE_BRACE SEMICOLON
+
+    CLOSE_BRACE     shift and go to state 110
+
+
+state 96
+
+    (13) CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .
+
+    CLASS           reduce using rule 13 (CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    VARIABLE        reduce using rule 13 (CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    FUNCTION        reduce using rule 13 (CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    PRINT           reduce using rule 13 (CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    END_CODE        reduce using rule 13 (CallClassFun -> VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+
+
+state 97
+
+    (16) ClassCode -> VARIABLE EQUALS expr SEMICOLON . ClassCode
+    (14) ClassCode -> . dec_var ClassCode
+    (15) ClassCode -> . dec_fun ClassCode
+    (16) ClassCode -> . VARIABLE EQUALS expr SEMICOLON ClassCode
+    (17) ClassCode -> . CallRetFun ClassCode
+    (18) ClassCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 51
+    CLOSE_CURLY_BRACE reduce using rule 18 (ClassCode -> .)
+    FUNCTION        shift and go to state 11
+
+    CallRetFun                     shift and go to state 52
+    ClassCode                      shift and go to state 111
+    dec_var                        shift and go to state 54
+    dec_fun                        shift and go to state 53
+
+state 98
+
+    (37) PrintData -> DOT VARIABLE PrintData .
+
+    SEMICOLON       reduce using rule 37 (PrintData -> DOT VARIABLE PrintData .)
+
+
+state 99
+
+    (36) PrintData -> DOT SINGLE_QUOTE string . SINGLE_QUOTE PrintData
+
+    SINGLE_QUOTE    shift and go to state 112
+
+
+state 100
+
+    (27) fun_code -> print . fun_code
+    (26) fun_code -> . dec_var fun_code
+    (27) fun_code -> . print fun_code
+    (28) fun_code -> . VARIABLE EQUALS expr SEMICOLON fun_code
+    (29) fun_code -> . CallFun fun_code
+    (30) fun_code -> . FunRet SEMICOLON
+    (31) fun_code -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (19) CallFun -> . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (20) CallFun -> . CallRetFun
+    (50) FunRet -> . RETURN VARIABLE
+    (51) FunRet -> . RETURN SINGLE_QUOTE string SINGLE_QUOTE
+    (52) FunRet -> . RETURN TRUE
+    (53) FunRet -> . RETURN FALSE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 101
+    CLOSE_CURLY_BRACE reduce using rule 31 (fun_code -> .)
+    PRINT           shift and go to state 10
+    IDENTIFIER      shift and go to state 106
+    RETURN          shift and go to state 103
+
+    CallRetFun                     shift and go to state 102
+    print                          shift and go to state 100
+    FunRet                         shift and go to state 108
+    dec_var                        shift and go to state 104
+    CallFun                        shift and go to state 105
+    fun_code                       shift and go to state 113
+
+state 101
+
+    (28) fun_code -> VARIABLE . EQUALS expr SEMICOLON fun_code
+    (32) dec_var -> VARIABLE . EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> VARIABLE . EQUALS CONST SEMICOLON
+    (21) CallRetFun -> VARIABLE . EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    EQUALS          shift and go to state 114
+
+
+state 102
+
+    (20) CallFun -> CallRetFun .
+
+    VARIABLE        reduce using rule 20 (CallFun -> CallRetFun .)
+    PRINT           reduce using rule 20 (CallFun -> CallRetFun .)
+    IDENTIFIER      reduce using rule 20 (CallFun -> CallRetFun .)
+    RETURN          reduce using rule 20 (CallFun -> CallRetFun .)
+    CLOSE_CURLY_BRACE reduce using rule 20 (CallFun -> CallRetFun .)
+
+
+state 103
+
+    (50) FunRet -> RETURN . VARIABLE
+    (51) FunRet -> RETURN . SINGLE_QUOTE string SINGLE_QUOTE
+    (52) FunRet -> RETURN . TRUE
+    (53) FunRet -> RETURN . FALSE
+
+    VARIABLE        shift and go to state 118
+    SINGLE_QUOTE    shift and go to state 117
+    TRUE            shift and go to state 115
+    FALSE           shift and go to state 116
+
+
+state 104
+
+    (26) fun_code -> dec_var . fun_code
+    (26) fun_code -> . dec_var fun_code
+    (27) fun_code -> . print fun_code
+    (28) fun_code -> . VARIABLE EQUALS expr SEMICOLON fun_code
+    (29) fun_code -> . CallFun fun_code
+    (30) fun_code -> . FunRet SEMICOLON
+    (31) fun_code -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (19) CallFun -> . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (20) CallFun -> . CallRetFun
+    (50) FunRet -> . RETURN VARIABLE
+    (51) FunRet -> . RETURN SINGLE_QUOTE string SINGLE_QUOTE
+    (52) FunRet -> . RETURN TRUE
+    (53) FunRet -> . RETURN FALSE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 101
+    CLOSE_CURLY_BRACE reduce using rule 31 (fun_code -> .)
+    PRINT           shift and go to state 10
+    IDENTIFIER      shift and go to state 106
+    RETURN          shift and go to state 103
+
+    CallRetFun                     shift and go to state 102
+    print                          shift and go to state 100
+    FunRet                         shift and go to state 108
+    dec_var                        shift and go to state 104
+    CallFun                        shift and go to state 105
+    fun_code                       shift and go to state 119
+
+state 105
+
+    (29) fun_code -> CallFun . fun_code
+    (26) fun_code -> . dec_var fun_code
+    (27) fun_code -> . print fun_code
+    (28) fun_code -> . VARIABLE EQUALS expr SEMICOLON fun_code
+    (29) fun_code -> . CallFun fun_code
+    (30) fun_code -> . FunRet SEMICOLON
+    (31) fun_code -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (19) CallFun -> . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (20) CallFun -> . CallRetFun
+    (50) FunRet -> . RETURN VARIABLE
+    (51) FunRet -> . RETURN SINGLE_QUOTE string SINGLE_QUOTE
+    (52) FunRet -> . RETURN TRUE
+    (53) FunRet -> . RETURN FALSE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 101
+    CLOSE_CURLY_BRACE reduce using rule 31 (fun_code -> .)
+    PRINT           shift and go to state 10
+    IDENTIFIER      shift and go to state 106
+    RETURN          shift and go to state 103
+
+    CallRetFun                     shift and go to state 102
+    print                          shift and go to state 100
+    FunRet                         shift and go to state 108
+    dec_var                        shift and go to state 104
+    CallFun                        shift and go to state 105
+    fun_code                       shift and go to state 120
+
+state 106
+
+    (19) CallFun -> IDENTIFIER . OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    OPEN_BRACE      shift and go to state 121
+
+
+state 107
+
+    (22) dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code . CLOSE_CURLY_BRACE
+
+    CLOSE_CURLY_BRACE shift and go to state 122
+
+
+state 108
+
+    (30) fun_code -> FunRet . SEMICOLON
+
+    SEMICOLON       shift and go to state 123
+
+
+state 109
+
+    (4) InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON . InternalCode
+    (3) InternalCode -> . CLASS IDENTIFIER OPEN_CURLY_BRACE ClassCode CLOSE_CURLY_BRACE InternalCode
+    (4) InternalCode -> . VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode
+    (5) InternalCode -> . dec_var InternalCode
+    (6) InternalCode -> . dec_fun InternalCode
+    (7) InternalCode -> . VARIABLE EQUALS expr SEMICOLON InternalCode
+    (8) InternalCode -> . CallRetFun InternalCode
+    (9) InternalCode -> . print InternalCode
+    (10) InternalCode -> . CallClassFun InternalCode
+    (11) InternalCode -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (22) dec_fun -> . FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (12) CallClassFun -> . VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (13) CallClassFun -> . VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    CLASS           shift and go to state 8
+    VARIABLE        shift and go to state 6
+    END_CODE        reduce using rule 11 (InternalCode -> .)
+    FUNCTION        shift and go to state 11
+    PRINT           shift and go to state 10
+
+    CallClassFun                   shift and go to state 3
+    print                          shift and go to state 4
+    CallRetFun                     shift and go to state 7
+    InternalCode                   shift and go to state 124
+    dec_var                        shift and go to state 12
+    dec_fun                        shift and go to state 9
+
+state 110
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE . SEMICOLON
+
+    SEMICOLON       shift and go to state 125
+
+
+state 111
+
+    (16) ClassCode -> VARIABLE EQUALS expr SEMICOLON ClassCode .
+
+    CLOSE_CURLY_BRACE reduce using rule 16 (ClassCode -> VARIABLE EQUALS expr SEMICOLON ClassCode .)
+
+
+state 112
+
+    (36) PrintData -> DOT SINGLE_QUOTE string SINGLE_QUOTE . PrintData
+    (36) PrintData -> . DOT SINGLE_QUOTE string SINGLE_QUOTE PrintData
+    (37) PrintData -> . DOT VARIABLE PrintData
+    (38) PrintData -> .
+
+    DOT             shift and go to state 77
+    SEMICOLON       reduce using rule 38 (PrintData -> .)
+
+    PrintData                      shift and go to state 126
+
+state 113
+
+    (27) fun_code -> print fun_code .
+
+    CLOSE_CURLY_BRACE reduce using rule 27 (fun_code -> print fun_code .)
+
+
+state 114
+
+    (28) fun_code -> VARIABLE EQUALS . expr SEMICOLON fun_code
+    (32) dec_var -> VARIABLE EQUALS . DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> VARIABLE EQUALS . CONST SEMICOLON
+    (21) CallRetFun -> VARIABLE EQUALS . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (41) expr -> . expr PLUS term
+    (42) expr -> . expr MINUS term
+    (43) expr -> . term
+    (44) term -> . term TIMES factor
+    (45) term -> . term DIVIDE factor
+    (46) term -> . factor
+    (47) factor -> . IDENTIFIER
+    (48) factor -> . CONST
+    (49) factor -> . VARIABLE
+
+    DOUBLE_QUOTE    shift and go to state 32
+    CONST           shift and go to state 31
+    IDENTIFIER      shift and go to state 26
+    VARIABLE        shift and go to state 63
+
+    factor                         shift and go to state 30
+    term                           shift and go to state 27
+    expr                           shift and go to state 127
+
+state 115
+
+    (52) FunRet -> RETURN TRUE .
+
+    SEMICOLON       reduce using rule 52 (FunRet -> RETURN TRUE .)
+
+
+state 116
+
+    (53) FunRet -> RETURN FALSE .
+
+    SEMICOLON       reduce using rule 53 (FunRet -> RETURN FALSE .)
+
+
+state 117
+
+    (51) FunRet -> RETURN SINGLE_QUOTE . string SINGLE_QUOTE
+    (39) string -> . IDENTIFIER string
+    (40) string -> .
+
+    IDENTIFIER      shift and go to state 36
+    SINGLE_QUOTE    reduce using rule 40 (string -> .)
+
+    string                         shift and go to state 128
+
+state 118
+
+    (50) FunRet -> RETURN VARIABLE .
+
+    SEMICOLON       reduce using rule 50 (FunRet -> RETURN VARIABLE .)
+
+
+state 119
+
+    (26) fun_code -> dec_var fun_code .
+
+    CLOSE_CURLY_BRACE reduce using rule 26 (fun_code -> dec_var fun_code .)
+
+
+state 120
+
+    (29) fun_code -> CallFun fun_code .
+
+    CLOSE_CURLY_BRACE reduce using rule 29 (fun_code -> CallFun fun_code .)
+
+
+state 121
+
+    (19) CallFun -> IDENTIFIER OPEN_BRACE . parameter CLOSE_BRACE SEMICOLON
+    (23) parameter -> . VARIABLE COMMA parameter
+    (24) parameter -> . VARIABLE
+    (25) parameter -> .
+
+    VARIABLE        shift and go to state 57
+    CLOSE_BRACE     reduce using rule 25 (parameter -> .)
+
+    parameter                      shift and go to state 129
+
+state 122
+
+    (22) dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .
+
+    CLASS           reduce using rule 22 (dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .)
+    VARIABLE        reduce using rule 22 (dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .)
+    FUNCTION        reduce using rule 22 (dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .)
+    PRINT           reduce using rule 22 (dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .)
+    END_CODE        reduce using rule 22 (dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .)
+    CLOSE_CURLY_BRACE reduce using rule 22 (dec_fun -> FUNCTION IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE OPEN_CURLY_BRACE fun_code CLOSE_CURLY_BRACE .)
+
+
+state 123
+
+    (30) fun_code -> FunRet SEMICOLON .
+
+    CLOSE_CURLY_BRACE reduce using rule 30 (fun_code -> FunRet SEMICOLON .)
+
+
+state 124
+
+    (4) InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode .
+
+    END_CODE        reduce using rule 4 (InternalCode -> VARIABLE EQUALS NEW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON InternalCode .)
+
+
+state 125
+
+    (12) CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .
+
+    CLASS           reduce using rule 12 (CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    VARIABLE        reduce using rule 12 (CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    FUNCTION        reduce using rule 12 (CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    PRINT           reduce using rule 12 (CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    END_CODE        reduce using rule 12 (CallClassFun -> VARIABLE EQUALS VARIABLE ARROW IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+
+
+state 126
+
+    (36) PrintData -> DOT SINGLE_QUOTE string SINGLE_QUOTE PrintData .
+
+    SEMICOLON       reduce using rule 36 (PrintData -> DOT SINGLE_QUOTE string SINGLE_QUOTE PrintData .)
+
+
+state 127
+
+    (28) fun_code -> VARIABLE EQUALS expr . SEMICOLON fun_code
+    (41) expr -> expr . PLUS term
+    (42) expr -> expr . MINUS term
+
+    SEMICOLON       shift and go to state 130
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 128
+
+    (51) FunRet -> RETURN SINGLE_QUOTE string . SINGLE_QUOTE
+
+    SINGLE_QUOTE    shift and go to state 131
+
+
+state 129
+
+    (19) CallFun -> IDENTIFIER OPEN_BRACE parameter . CLOSE_BRACE SEMICOLON
+
+    CLOSE_BRACE     shift and go to state 132
+
+
+state 130
+
+    (28) fun_code -> VARIABLE EQUALS expr SEMICOLON . fun_code
+    (26) fun_code -> . dec_var fun_code
+    (27) fun_code -> . print fun_code
+    (28) fun_code -> . VARIABLE EQUALS expr SEMICOLON fun_code
+    (29) fun_code -> . CallFun fun_code
+    (30) fun_code -> . FunRet SEMICOLON
+    (31) fun_code -> .
+    (32) dec_var -> . VARIABLE EQUALS DOUBLE_QUOTE string DOUBLE_QUOTE SEMICOLON
+    (33) dec_var -> . VARIABLE EQUALS CONST SEMICOLON
+    (34) print -> . PRINT SINGLE_QUOTE string SINGLE_QUOTE PrintData SEMICOLON
+    (35) print -> . PRINT VARIABLE SEMICOLON
+    (19) CallFun -> . IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+    (20) CallFun -> . CallRetFun
+    (50) FunRet -> . RETURN VARIABLE
+    (51) FunRet -> . RETURN SINGLE_QUOTE string SINGLE_QUOTE
+    (52) FunRet -> . RETURN TRUE
+    (53) FunRet -> . RETURN FALSE
+    (21) CallRetFun -> . VARIABLE EQUALS IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON
+
+    VARIABLE        shift and go to state 101
+    CLOSE_CURLY_BRACE reduce using rule 31 (fun_code -> .)
+    PRINT           shift and go to state 10
+    IDENTIFIER      shift and go to state 106
+    RETURN          shift and go to state 103
+
+    CallRetFun                     shift and go to state 102
+    print                          shift and go to state 100
+    FunRet                         shift and go to state 108
+    dec_var                        shift and go to state 104
+    CallFun                        shift and go to state 105
+    fun_code                       shift and go to state 133
+
+state 131
+
+    (51) FunRet -> RETURN SINGLE_QUOTE string SINGLE_QUOTE .
+
+    SEMICOLON       reduce using rule 51 (FunRet -> RETURN SINGLE_QUOTE string SINGLE_QUOTE .)
+
+
+state 132
+
+    (19) CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE . SEMICOLON
+
+    SEMICOLON       shift and go to state 134
+
+
+state 133
+
+    (28) fun_code -> VARIABLE EQUALS expr SEMICOLON fun_code .
+
+    CLOSE_CURLY_BRACE reduce using rule 28 (fun_code -> VARIABLE EQUALS expr SEMICOLON fun_code .)
+
+
+state 134
+
+    (19) CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .
+
+    VARIABLE        reduce using rule 19 (CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    PRINT           reduce using rule 19 (CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    IDENTIFIER      reduce using rule 19 (CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    RETURN          reduce using rule 19 (CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+    CLOSE_CURLY_BRACE reduce using rule 19 (CallFun -> IDENTIFIER OPEN_BRACE parameter CLOSE_BRACE SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SEMICOLON in state 31 resolved as shift

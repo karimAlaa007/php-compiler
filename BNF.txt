@@ -1,0 +1,27 @@
+S			  -> <StartCode>
+<StartCode>   -> <?php <InternalCode> ?> | E
+<InternalCode> -> clas <ident> { <ClassCode> } <InternalCode> | E
+<ClassCode>   -> <dec_var> <ClassCode> | <dec_fun> <ClassCode> | <var> = <expr> <ClassCode> | E
+<CallFun>     -> <ident> ( <parameter> ) ; | <CallRetFun>
+<CallRetFun>  -> <var> = <ident> ( <parameter> ) ;
+<dec_fun>     -> FUNCTION <ident> ( <parameter> ) { <fun_code> }
+<parameter>   -> <var> COMMA <parameter> | <var> | E
+<fun_code>    -> <dec_var> <fun_code> | <print> <fun_code> | <var> = <expr> <fun_code> | <CallFun> <fun_code> | <fun_ret> | E
+<dec_var> 	  -> <var> = DOUBLE_QUOTE <string> DOUBLE_QUOTE ; | <var> = <const> ;
+<print> 	  -> print ' <string> ' <print>Data ; | <print> <var> ;
+<print>Data   -> DOT ' <string> ' <print>Data | DOT <var> <print>Data | E
+<string> 	  -> <ident> <string> | E
+<expr> 		  -> <expr> + <term> ; | <expr> - <term> ; | <term>
+<term> 		  -> <term> * <factor> ; | <term> / <factor> ; | <factor>
+<factor> 	  -> <ident> | <const> | <var>
+<fun_ret> 	  -> return <var> ; | return ' <string> ' ;
+<var>      	  -> $ <letter> <letter> | $ <letter> <digit>
+<const>    	  -> <digit>
+<ident>    	  -> <letter> <letter> | <letter> <digit>
+<letter>   	  -> A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
+<digit>    	  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+
+
+
+
