@@ -27,6 +27,6 @@ Have the functionality to
 1) Open file and compile it
 2) Save file
 3) Clear area
-4) Add the php cover ("<?php ?>")
+4) Add the php cover 
 
 
